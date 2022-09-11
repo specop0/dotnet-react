@@ -1,26 +1,18 @@
 import React from "react";
-
-type Forecast = {
-  date: string;
-  temperatureC: string;
-  temperatureF: string;
-  summary: string;
-};
+import { useGetWeatherForecast } from "../openapi/backendComponents";
 
 const Weather: React.FC = () => {
-  const [forecasts, setForecasts] = React.useState<Forecast[]>([]);
+  const { data, isLoading, error } = useGetWeatherForecast({});
+  const forecasts = data ?? [];
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(
-        window.configuration.backend + "weatherforecast"
-      );
-      const data: Forecast[] = await response.json();
-      setForecasts(data);
-    };
+  if (isLoading) {
+    return <div role="progressbar">Loading...</div>;
+  }
 
-    fetchData();
-  }, []);
+  if (error) {
+    return <>Error: {JSON.stringify(error)}</>;
+  }
+
   return (
     <>
       {forecasts.map((forecast, i) => (

@@ -1,3 +1,3 @@
 window.configuration = {
-    "backend" : "https://localhost:40443/dotnet-react/api/"
+    "backendUrl" : "https://localhost:40443/dotnet-react"
 }
