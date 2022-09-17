@@ -1,4 +1,5 @@
 import React from "react";
+import { CircularProgress, Typography } from "@mui/material";
 import { useGetWeatherForecast } from "../openapi/backendComponents";
 
 const Weather: React.FC = () => {
@@ -6,7 +7,7 @@ const Weather: React.FC = () => {
   const forecasts = data ?? [];
 
   if (isLoading) {
-    return <div role="progressbar">Loading...</div>;
+    return <CircularProgress />;
   }
 
   if (error) {
@@ -16,9 +17,9 @@ const Weather: React.FC = () => {
   return (
     <>
       {forecasts.map((forecast, i) => (
-        <p key={i}>
+        <Typography key={i}>
           {forecast.temperatureC}°C {forecast.summary} {forecast.date}
-        </p>
+        </Typography>
       ))}
     </>
   );
