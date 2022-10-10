@@ -4,6 +4,7 @@ using System.Linq;
 using DotNetReact.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace DotNetReact.Controllers;
 
@@ -17,15 +18,13 @@ public class WeatherForecastController : ControllerBase
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    /// <summary>
-    /// Gets the weather forecast.
-    /// </summary>
-    /// <response code="200">Returns the weather forecast.</response>
-    /// <response code="400">For testing purposes.</response>
     [HttpGet]
-    [OperationId("getWeatherForecast")]
-    [ProducesResponseType(typeof(IEnumerable<WeatherForecast>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+    [SwaggerOperation(
+        OperationId = "getWeatherForecast",
+        Summary = "Gets the weather forecast.",
+        Description = "Returns the weather forecast.")]
+    [SwaggerResponse(StatusCodes.Status200OK, "Returns the weather forecast.", typeof(IEnumerable<WeatherForecast>))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "For testing purposes.", typeof(ErrorResponse))]
     public IActionResult Get()
     {
         var isError = Random.Shared.Next(2) == 0;

@@ -16,6 +16,7 @@
           "WeatherForecast"
         ],
         "summary": "Gets the weather forecast.",
+        "description": "Returns the weather forecast.",
         "operationId": "getWeatherForecast",
         "responses": {
           "200": {
